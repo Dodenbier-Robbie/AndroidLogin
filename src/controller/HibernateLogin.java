@@ -42,11 +42,16 @@ public class HibernateLogin {
     			query.setParameter("username", username);
     			query.setParameter("password", password);
     			results = query.list();
-    			Login tempID = (Login) results.get(0);
-    			UserID.user_id = tempID.getUserId();
     			qualifier = results.size();
-    			session.flush();
-    			tx.commit();
+    			if(qualifier > 0) {
+    				Login tempID = (Login) results.get(0);
+        			UserID.user_id = tempID.getUserId();
+        			session.flush();
+        			tx.commit();
+    			} else {
+    				session.flush();
+        			tx.commit();
+    			}
     		} catch (HibernateException e) {
                 if (tx!=null) tx.rollback();
                 e.printStackTrace();
