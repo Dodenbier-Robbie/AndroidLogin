@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<hibernate-mapping>
+  <class name="model.Users" table="users">
+    <id column="user_id" name="userId" type="int">
+      <generator class="native" />
+    </id>
+    <property name="firstname" column="firstname" type="string" />
+    <property name="lastname" column="lastname" type="string" />
+    <property name="email" column="email" type="string" />
+    <property name="age" column="age" type="int" />
+    <property name="createDate" column="create_date" type="date" />
+  </class>
+</hibernate-mapping>

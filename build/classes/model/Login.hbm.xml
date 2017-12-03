@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<hibernate-mapping>
+  <class name="model.Login" table="logins">
+    <id column="login_id" name="loginId" type="int">
+      <generator class="native" />
+    </id>
+    <property name="userId" column="user_id" type="int" />
+    <property name="username" column="username" type="string" />
+    <property name="password" column="password" type="string" />
+    <property name="createDate" column="create_date" type="date" />
+  </class>
+</hibernate-mapping>
