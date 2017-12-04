@@ -10,8 +10,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import model.Login;
-import model.UserID;
 
+@SuppressWarnings("deprecation")
 public class GetSaltValue {
 	
 	private static SessionFactory factory;

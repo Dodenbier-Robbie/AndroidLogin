@@ -1,7 +1,5 @@
 package controller;
 
-import com.mysql.jdbc.Connection;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,14 +15,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+@SuppressWarnings("deprecation")
 public class HibernateAddUser {
 	
 	private static SessionFactory factory;
     private static Transaction tx;
     private static Session session;
     
-    @SuppressWarnings("deprecation")
-	public HibernateAddUser () {
+    public HibernateAddUser () {
         try {
             factory = new Configuration().configure().buildSessionFactory();
         } catch (Throwable ex) { 

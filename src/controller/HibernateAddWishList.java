@@ -1,16 +1,10 @@
 package controller;
 
-import com.mysql.jdbc.Connection;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import model.Users;
 import model.WishList;
 
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -22,8 +16,7 @@ public class HibernateAddWishList {
     private static Transaction tx;
     private static Session session;
     
-    @SuppressWarnings("deprecation")
-	public HibernateAddWishList () {
+    public HibernateAddWishList () {
         try {
             factory = new Configuration().configure().buildSessionFactory();
         } catch (Throwable ex) { 

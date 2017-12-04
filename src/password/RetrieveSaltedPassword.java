@@ -3,7 +3,6 @@ package password;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
 
 public class RetrieveSaltedPassword {
 private String password;
