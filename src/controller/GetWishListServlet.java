@@ -10,16 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.util.Date;
 import java.util.List;
 import model.UserID;
 import model.WishList;
  
 @WebServlet("/get_wishlist")
-public class GetWishListServlet extends HttpServlet {
+public class GetWishListServlet extends HttpServlet implements Runnable {
 	private static final long serialVersionUID = 1L;
+	Thread searcher;
+	long lastprime = 0;
+	Date lastprimeModified = new Date();
 	
 	public void init() throws ServletException {
-        
+		searcher = new Thread(this);
+        searcher.setPriority(Thread.MIN_PRIORITY);
+        searcher.start();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -55,5 +61,23 @@ public class GetWishListServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json.toString());
+    }
+    
+    public void run() {
+		long canidate = 2;
+		
+		while (true) {
+			canidate +=2;
+			try {
+				searcher.sleep(5000);
+			} catch (InterruptedException ignored) {
+				
+			}
+			lastprime = 1;
+		}
+	}
+    
+    public void destroy() {
+    		searcher.stop();
     }
 }
