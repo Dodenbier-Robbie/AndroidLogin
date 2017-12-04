@@ -54,15 +54,14 @@ public class AddUserServlet extends HttpServlet {
         		HibernateAddUser createUser = new HibernateAddUser();
         		createUser.addUser(firstname, lastname, email, age, createDate);
         		Integer userId = createUser.getUserId(email);
-        		createUser.addLogin(userId, username, newPassword, createDate, salt);
+        		boolean results = createUser.addLogin(userId, username, newPassword, createDate, salt);
+        		createUser.closeConnection();
         		
-        		json.put("info", "success");
-        		
-        		//if (results != true) {
-                //json.put("info","fail");
-            //} else {
-                //json.put("info", "success");
-            //}
+        		if (results != true) {
+                json.put("info","fail");
+            } else {
+                json.put("info", "success");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

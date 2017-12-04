@@ -80,8 +80,9 @@ public class HibernateAddUser {
 		return UserID.user_id ;
     }
     
-    public void addLogin(Integer userId, String userName, String password, Date createDate, String salt) {
+    public boolean addLogin(Integer userId, String userName, String password, Date createDate, String salt) {
     		session = factory.openSession();
+    		String results = null;
     		try {
     			tx = session.beginTransaction();
     			Login login = new Login(userId, userName, password, createDate, salt);
@@ -90,15 +91,23 @@ public class HibernateAddUser {
     			login.setPassword(password);
     			login.setCreateDate(createDate);
     			login.setSalt(salt);
+    			results = "true";
     			session.save(login);
     			session.flush();
     			tx.commit();
     		} catch (HibernateException e) {
     			if (tx!=null) tx.rollback();
     			e.printStackTrace();
+    			results = "false";
     		} finally {
     			session.close();
     		}
-    	
+    		
+    		if(results == "true") {
+    			return true;
+    		} else {
+    			return false;
+    		}
+
     }
 }

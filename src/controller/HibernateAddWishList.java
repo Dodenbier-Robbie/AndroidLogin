@@ -35,8 +35,9 @@ public class HibernateAddWishList {
         factory.close();
     }
     
-    public void addWishList(Integer userId, String itemCategory, String itemDetail, Date createDate) {
+    public boolean addWishList(Integer userId, String itemCategory, String itemDetail, Date createDate) {
     		session = factory.openSession();
+    		String results = null;
     		try {
     			tx = session.beginTransaction();
     			WishList wishlist = new WishList(userId, itemCategory, itemDetail, createDate);
@@ -47,11 +48,19 @@ public class HibernateAddWishList {
     			session.save(wishlist);
     			session.flush();
     			tx.commit();
+    			results = "true";
     		} catch (HibernateException e) {
             if (tx!=null) tx.rollback();
             e.printStackTrace();
+            results = "false";
         } finally {
             session.close();
         }
+    		
+    		if(results == "true") {
+    			return true;
+    		} else {
+    			return false;
+    		}		
     }
 }

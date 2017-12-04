@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
         		saltValue.closeConnection();
         		
         		if(salt.equals("Fail")) {
-        			json.put("info", salt);
+        			json.put("info", "fail");
         		} else {
 	        		RetrieveSaltedPassword securePassword = new RetrieveSaltedPassword();
 	        		String hashPassword = securePassword.RetrieveSaltedPassword(password, salt);

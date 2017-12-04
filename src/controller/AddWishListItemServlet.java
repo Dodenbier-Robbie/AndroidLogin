@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,9 +45,14 @@ public class AddWishListItemServlet extends HttpServlet {
         		Date createDate = new Date();
         		
         		HibernateAddWishList wishList = new HibernateAddWishList();
-        		wishList.addWishList(user_id, itemCategory, itemDetail, createDate);
+        		boolean results = wishList.addWishList(user_id, itemCategory, itemDetail, createDate);
+        		wishList.closeConnection();
         		
-        		json.put("info", "success");
+        		if (results != true) {
+                    json.put("info","fail");
+                } else {
+                    json.put("info", "success");
+                }
         		
         		wishList.closeConnection();
         		
