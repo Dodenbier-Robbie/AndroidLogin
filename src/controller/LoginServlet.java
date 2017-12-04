@@ -43,17 +43,21 @@ public class LoginServlet extends HttpServlet {
         		String salt = saltValue.getSaltDB(userName);
         		saltValue.closeConnection();
         		
-        		RetrieveSaltedPassword securePassword = new RetrieveSaltedPassword();
-        		String hashPassword = securePassword.RetrieveSaltedPassword(password, salt);
-        		
-        		HibernateLogin login = new HibernateLogin();
-        		boolean results = login.validateLogin(userName, hashPassword);
-        		if (results != true) {
-                json.put("info","fail");
-            } else {
-                json.put("info", "success");
-            }
-        		login.closeConnection();
+        		if(salt.equals("Fail")) {
+        			json.put("info", salt);
+        		} else {
+	        		RetrieveSaltedPassword securePassword = new RetrieveSaltedPassword();
+	        		String hashPassword = securePassword.RetrieveSaltedPassword(password, salt);
+	        		
+	        		HibernateLogin login = new HibernateLogin();
+	        		boolean results = login.validateLogin(userName, hashPassword);
+	        		if (results != true) {
+	                json.put("info","fail");
+	            } else {
+	                json.put("info", "success");
+	            }
+	        		login.closeConnection();
+        		}
         		
         } catch (Exception e) {
             e.printStackTrace();

@@ -48,6 +48,7 @@ public class GetSaltValue {
     				session.flush();
     				tx.commit();
 			} else {
+				salt = "fail";
 				session.flush();
     				tx.commit();
 			}
