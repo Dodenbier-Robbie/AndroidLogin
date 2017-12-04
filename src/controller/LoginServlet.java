@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
 import org.json.simple.JSONObject;
+
+import password.GetSaltValue;
+import password.RetrieveSaltedPassword;
  
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -35,14 +38,21 @@ public class LoginServlet extends HttpServlet {
         try {
         		String userName = params[0];
         		String password = params[1];
+        		
+        		GetSaltValue saltValue = new GetSaltValue();
+        		String salt = saltValue.getSaltDB(userName);
+        		saltValue.closeConnection();
+        		
+        		RetrieveSaltedPassword securePassword = new RetrieveSaltedPassword();
+        		String hashPassword = securePassword.RetrieveSaltedPassword(password, salt);
+        		
         		HibernateLogin login = new HibernateLogin();
-        		boolean results = login.validateLogin(userName, password);
+        		boolean results = login.validateLogin(userName, hashPassword);
         		if (results != true) {
                 json.put("info","fail");
             } else {
                 json.put("info", "success");
             }
-        		
         		login.closeConnection();
         		
         } catch (Exception e) {

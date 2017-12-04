@@ -80,15 +80,16 @@ public class HibernateAddUser {
 		return UserID.user_id ;
     }
     
-    public void addLogin(Integer userId, String userName, String password, Date createDate) {
+    public void addLogin(Integer userId, String userName, String password, Date createDate, String salt) {
     		session = factory.openSession();
     		try {
     			tx = session.beginTransaction();
-    			Login login = new Login(userId, userName, password, createDate);
+    			Login login = new Login(userId, userName, password, createDate, salt);
     			login.setUserId(userId);
     			login.setUsername(userName);
     			login.setPassword(password);
     			login.setCreateDate(createDate);
+    			login.setSalt(salt);
     			session.save(login);
     			session.flush();
     			tx.commit();

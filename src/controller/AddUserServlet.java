@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Enumeration;
 import org.json.simple.JSONObject;
+
+import password.NewSaltedPassword;
  
 @WebServlet("/add_user")
 public class AddUserServlet extends HttpServlet {
@@ -43,10 +45,16 @@ public class AddUserServlet extends HttpServlet {
         		String password = params[5];
         		Date createDate = new Date();
         		
+        		NewSaltedPassword securePassword = new NewSaltedPassword();
+        		String[] hashPassword = securePassword.NewSaltedPassword(password);
+        		
+        		String newPassword = hashPassword[0];
+        		String salt = hashPassword[1];
+        		
         		HibernateAddUser createUser = new HibernateAddUser();
         		createUser.addUser(firstname, lastname, email, age, createDate);
         		Integer userId = createUser.getUserId(email);
-        		createUser.addLogin(userId, username, password, createDate);
+        		createUser.addLogin(userId, username, newPassword, createDate, salt);
         		
         		json.put("info", "success");
         		

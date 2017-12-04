@@ -10,6 +10,7 @@ public class Login implements java.io.Serializable {
 	private String username;
 	private String password;
 	private Date createDate;
+	private String salt;
 
 	public Login() {
 	}
@@ -19,10 +20,11 @@ public class Login implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public Login(Integer userId, String username, String password, Date createDate) {
+	public Login(Integer userId, String username, String password, Date createDate, String salt) {
 		this.username = username;
 		this.password = password;
 		this.createDate = createDate;
+		this.salt = salt;
 	}
 
 	public Integer getLoginId() {
@@ -63,5 +65,13 @@ public class Login implements java.io.Serializable {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	} 
 }

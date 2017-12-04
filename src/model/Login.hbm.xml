@@ -8,5 +8,6 @@
     <property name="username" column="username" type="string" />
     <property name="password" column="password" type="string" />
     <property name="createDate" column="create_date" type="date" />
+    <property name="salt" column="salt" type="string" />
   </class>
 </hibernate-mapping>
