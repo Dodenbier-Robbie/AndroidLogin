@@ -18,7 +18,6 @@ public class AddUserServlet extends HttpServlet implements Runnable {
 	private static final long serialVersionUID = 1L;
 	Thread searcher;
 	long lastprime = 0;
-	Date lastprimeModified = new Date();
 	
 	public void init() throws ServletException {
 		searcher = new Thread(this);
