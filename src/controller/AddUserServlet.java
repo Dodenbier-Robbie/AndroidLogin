@@ -14,15 +14,11 @@ import org.json.simple.JSONObject;
 import password.NewSaltedPassword;
  
 @WebServlet("/add_user")
-public class AddUserServlet extends HttpServlet implements Runnable {
+public class AddUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	Thread searcher;
-	long lastprime = 0;
 	
 	public void init() throws ServletException {
-		searcher = new Thread(this);
-        searcher.setPriority(Thread.MIN_PRIORITY);
-        searcher.start();
+		
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -72,23 +68,5 @@ public class AddUserServlet extends HttpServlet implements Runnable {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json.toString());
-    }
-    
-    public void run() {
-		long canidate = 2;
-		
-		while (true) {
-			canidate +=2;
-			try {
-				searcher.sleep(5000);
-			} catch (InterruptedException ignored) {
-				
-			}
-			lastprime = 1;
-		}
-	}
-    
-    public void destroy() {
-    		searcher.stop();
     }
 }
