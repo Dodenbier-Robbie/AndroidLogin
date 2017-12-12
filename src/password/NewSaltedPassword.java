@@ -26,7 +26,7 @@ public class NewSaltedPassword {
         return salt.toString();
     }
 	
-	private static String getSecurePassword(String passwordToHash, String salt)
+	static String getSecurePassword(String passwordToHash, String salt)
     {
 		String generatedPassword = null;
 		try {
